@@ -1,0 +1,158 @@
+{% extends 'base.html' %} {% block body %}
+<body style="background-color: powderblue">
+  <div class="container my-4">
+    <h2 class="text-center">TODOs List</h2>
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        placeholder="add an item"
+        class="form-control"
+        id="title"
+        aria-describedby="emailHelp"
+      />
+    </div>
+    <div class="form-group">
+      <label for="title">Time</label>
+      <input
+        type="text"
+        class="form-control"
+        id="time"
+        placeholder="At what time"
+        aria-describedby="emailHelp"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description " class="my-2">Description</label>
+      <textarea
+        class="form-control"
+        id="description"
+        rows="3"
+        placeholder="Describe the event"
+      ></textarea>
+    </div>
+    <br />
+
+    <button id="add" class="btn btn-primary">Add to list</button>
+    <button id="clear" class="btn btn-primary" onclick="clearStr()">
+      Clear list
+    </button>
+
+    <div id="items" class="my-4">
+      <h2>Your Items</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">SNo</th>
+            <th scope="col">Item Title</th>
+            <th scope="col">Item Description</th>
+            <th scope="col">Time</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr>
+            <td scope="row"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="deleted()">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    function getAndUpdate() {
+      console.log("updating list....");
+      tits = document.getElementById("title").value; // getting title in tits variale
+      desc = document.getElementById("description").value;
+      time = document.getElementById("time").value;
+      // getting description in desc variale
+
+      if (localStorage.getItem("itemsJson") == null) {
+        // if the local storage is clear
+        //  an array should be created and filled with tits and desc
+        itemJsonArray = []; // empty array
+        itemJsonArray.push([tits, desc, time]); // filling empty array with the data given by user
+        localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray)); // storing in local storage
+      } else {
+        itemJsonArrayStr = localStorage.getItem("itemsJson");
+        itemJsonArray = JSON.parse(itemJsonArrayStr);
+        itemJsonArray.push([tits, desc, time]);
+        localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray));
+      }
+      update();
+    }
+    function update() {
+      if (localStorage.getItem("itemsJson") == null) {
+        itemJsonArray = [];
+        localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray));
+      } else {
+        itemJsonArrayStr = localStorage.getItem("itemsJson");
+        itemJsonArray = JSON.parse(itemJsonArrayStr);
+      }
+      // populating table
+      let tableBody = document.getElementById("tableBody");
+      let str = "";
+      itemJsonArray.forEach((element, index) => {
+        str += `
+        <tr>
+        <td scope="row">${index + 1}</td>
+        <td>${element[0]}</td>
+        <td>${element[1]}</td>
+        <td>${element[2]}</td> 
+        <td><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
+         </tr>`;
+      });
+      tableBody.innerHTML = str;
+    }
+
+    add = document.getElementById("add"); // getting element of add button that i have created
+    add.addEventListener("click", getAndUpdate); // creating a function that if i clik add it should store the items in localstorage
+    update();
+
+    function deleted(itemIndex) {
+      console.log("Delete", itemIndex);
+      itemJsonArrayStr = localStorage.getItem("itemsJson");
+      itemJsonArray = JSON.parse(itemJsonArrayStr);
+      // Delete itemIndex element from the array
+      itemJsonArray.splice(itemIndex, 1);
+      localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray));
+      update();
+    }
+    /* function deleted(itemIndex){
+                 console.log("Delete", itemIndex);
+                 itemJsonArrayStr = localStorage.getItem('itemsJson')
+                 itemJsonArray = JSON.parse(itemJsonArrayStr);
+                 // Delete itemIndex element from the array
+                 itemJsonArray.splice(itemIndex, 1);
+                 localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray));
+                 update();
+ 
+             }
+             */
+
+    function clearStr() {
+      if (confirm("are you sure you want to clear the list?")) {
+        console.log("clearing storage");
+        localStorage.clear();
+        update();
+      }
+    }
+  </script>
+</body>
+
+{% endblock body %}
