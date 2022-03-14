@@ -1,3 +1,4 @@
+from email import message
 from django.shortcuts import render, HttpResponse
 from Home.models import Contact
 from datetime import datetime
@@ -18,6 +19,7 @@ def contact(request):
         date= datetime.today()
         contact= Contact(name=name,address=address,email=email,issue=issue,date=date)
         contact.save()
+        message.success("your form is saved")
         
 
     return render(request,'contact.html')
