@@ -118,3 +118,83 @@ $(document)
                 .fadeIn();
         });
     })
+
+
+function getAndUpdate() {
+    console.log("updating list....");
+    tits = document.getElementById("title").value; // getting title in tits variale
+    desc = document.getElementById("description").value;
+    time = document.getElementById("time").value;
+    // getting description in desc variale
+
+    if (localStorage.getItem("itemsJson") == null) {
+        // if the local storage is clear
+        //  an array should be created and filled with tits and desc
+        itemJsonArray = []; // empty array
+        itemJsonArray.push([tits, desc, time]); // filling empty array with the data given by user
+        localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray)); // storing in local storage
+    } else {
+        itemJsonArrayStr = localStorage.getItem("itemsJson");
+        itemJsonArray = JSON.parse(itemJsonArrayStr);
+        itemJsonArray.push([tits, desc, time]);
+        localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray));
+    }
+    update();
+}
+
+function update() {
+    if (localStorage.getItem("itemsJson") == null) {
+        itemJsonArray = [];
+        localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray));
+    } else {
+        itemJsonArrayStr = localStorage.getItem("itemsJson");
+        itemJsonArray = JSON.parse(itemJsonArrayStr);
+    }
+    // populating table
+    let tableBody = document.getElementById("tableBody");
+    let str = "";
+    itemJsonArray.forEach((element, index) => {
+        str += `
+    <tr>
+    <td scope="row">${index + 1}</td>
+    <td>${element[0]}</td>
+    <td>${element[1]}</td>
+    <td>${element[2]}</td> 
+    <td><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
+     </tr>`;
+    });
+    tableBody.innerHTML = str;
+}
+
+add = document.getElementById("add"); // getting element of add button that i have created
+add.addEventListener("click", getAndUpdate); // creating a function that if i clik add it should store the items in localstorage
+update();
+
+function deleted(itemIndex) {
+    console.log("Delete", itemIndex);
+    itemJsonArrayStr = localStorage.getItem("itemsJson");
+    itemJsonArray = JSON.parse(itemJsonArrayStr);
+    // Delete itemIndex element from the array
+    itemJsonArray.splice(itemIndex, 1);
+    localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray));
+    update();
+}
+/* function deleted(itemIndex){
+         console.log("Delete", itemIndex);
+         itemJsonArrayStr = localStorage.getItem('itemsJson')
+         itemJsonArray = JSON.parse(itemJsonArrayStr);
+         // Delete itemIndex element from the array
+         itemJsonArray.splice(itemIndex, 1);
+         localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray));
+         update();
+
+     }
+     */
+
+function clearStr() {
+    if (confirm("are you sure you want to clear the list?")) {
+        console.log("clearing storage");
+        localStorage.clear();
+        update();
+    }
+}

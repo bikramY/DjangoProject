@@ -129,6 +129,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static"
 # ]
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LeGuN8eAAAAAAx_Iq-NTs4Id25-UzqnRk9Tqsi8'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
