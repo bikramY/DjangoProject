@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 git commit works
 this is the change
+=======
+git commit by subham
+>>>>>>> 57f1a2e968fbc14553c6852a05a1070a464c7cf3
