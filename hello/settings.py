@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+GOOGLE_RECAPTCHA_SECRET_KEY = "6Ld9xt8eAAAAAL7oErzNkyBjkEE87L4_tLfS2IIU"
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -129,7 +131,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static"
 # ]
-GOOGLE_RECAPTCHA_SECRET_KEY = '6LeGuN8eAAAAAAx_Iq-NTs4Id25-UzqnRk9Tqsi8'
+
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')

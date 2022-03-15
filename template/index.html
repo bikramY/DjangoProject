@@ -22,16 +22,16 @@
             {% csrf_token %} {{ form.as_p }}
 
             <script src='https://www.google.com/recaptcha/api.js'></script>
-            <div class="g-recaptcha" data-sitekey="6LeGuN8eAAAAAEzLORhdJ68ORjimmiezr91mwlS4"></div>
+            <div class="g-recaptcha" data-sitekey="6Ld9xt8eAAAAAHNq_Tizm7sn03GUnHhbBYPemK-t"></div>
 
-            <button type="submit" class="btn btn-primary">Post</button>
+            <button id="add" class="btn btn-primary">Add to list</button>
+            <button id="clear" class="btn btn-primary" onclick="clearStr()">
+      Clear list
+    </button>
         </form>
         {% endblock %}
 
-        <button id="add" class="btn btn-primary">Add to list</button>
-        <button id="clear" class="btn btn-primary" onclick="clearStr()">
-      Clear list
-    </button>
+
 
         <div id="items" class="my-4">
             <h2>Your Items</h2>
