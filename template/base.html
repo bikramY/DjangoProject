@@ -7,9 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static css/style.css %}" />
-    {% endblock %}
+    <link rel="stylesheet" type="text/css" {%static%} href="{% static css/style.css %} {%endblock static%}">
+  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% endblock %}
 </head>
 {% endblock head %} {% block title %}
 <title>To-do List</title>
@@ -53,7 +54,6 @@
         <h1>HEY! <br><span>HOW YOU DOING?</span></h1>
     </div><canvas id="bubble"></canvas>
 </body>
-
 
 {% endblock navbar %} {% block body %} {% endblock body %}
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
