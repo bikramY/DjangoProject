@@ -1,5 +1,14 @@
 {% extends 'base.html' %} {% block body %}
-
+<h2>
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong></strong>{{message}} 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+        {% endfor %}
+  
+  </div>
+      </div>
 <body style="background-color: powderblue">
   <div class="container my-4">
     <h2 class="text-center">TODOs List</h2>
