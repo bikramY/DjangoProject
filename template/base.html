@@ -40,8 +40,102 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/contact">Contact me</a>
-          </li>
+          
         </ul>
+
+
+
+        <!-- Button trigger modal -->
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#login">
+ login
+</button>
+
+<!-- login Modal -->
+<div class="modal fade" id="login" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginLabel">Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/login" method="post">
+          
+          {% csrf_token %}
+
+  <div class="mb-3">
+    <label for="loginemail" class="form-label">Email address</label>
+    <input type="email" class="form-control" name="loginemail" id="loginemail" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="loginpassword" class="form-label">Password</label>
+    <input type="password" class="form-control" name=loginpassword id="loginpassword">
+  </div>
+
+  <button type="submit" class="btn btn-primary ">login</button>
+</form>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
+  Signup
+</button>
+
+
+
+<!-- sign Modal -->
+ <div class="modal fade" id="signupmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signup">Singn Up</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form action='/signup' method='POST'>
+        {% csrf_token %}
+  <div class="mb-3">
+    <label for="fname" class="form-label">First Name</label>
+    <input type="text" class="form-control" name="fname" id="fname" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="lname" class="form-label">Last Name</label>
+    <input type="text" class="form-control"  name="lname" id="lname" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="pass1" class="form-label">Password</label>
+    <input type="password" class="form-control" name="pass1" id="pass1">
+  </div>
+  <div class="mb-3">
+    <label for="pass2" class="form-label">Confirm Password</label>
+    <input type="password" class="form-control" name="pass2" id="pass2">
+  </div>
+
+  
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+    
+      
+    </div>
+  </div>
+</div>
+        
+
+        
+
+        
+      
       </div>
     </div>
   </nav>
