@@ -1,5 +1,5 @@
 from email import message
-import http
+from email.mime import base
 from turtle import home
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
@@ -25,6 +25,10 @@ def handleSignUp(request):
      pass2 = request.POST['pass2']
 
      #checkss
+     if pass1 !=pass2:
+      messages.info(request,"Your password did not match")
+      return redirect('Home')
+
 
      #create user
 
@@ -66,6 +70,7 @@ def handleLogout(request):
 
 
 def contact(request):
+
     if request.method=='POST':
         name=request.POST.get('name')
         address=request.POST.get('address')
