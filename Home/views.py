@@ -1,6 +1,10 @@
 from email import message
 from email.mime import base
+import json
+from matplotlib.font_manager import json_load
+import requests
 from turtle import home
+from urllib import response
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from Home.models import Contact
@@ -29,20 +33,30 @@ def handleSignUp(request):
       messages.info(request,"Your password did not match")
       return redirect('Home')
 
-
-     #create user
-
-     myuser= User.objects.create_user(username=email, email=email, password=pass1)
-     myuser.first_name=fname
-     myuser.last_name=lname
-     myuser.save()
-     messages.info(request," Congratulations you have successfully created user account")
-     return redirect('Home')
-
-    #  new_user = User.objects.create(username=username, email=email, password=password)
-    #  new_user = form.save(commit=False)
-
-
+     clientKey= request.POST['g-recaptcha-response']
+     secretkey='6LfdC0gfAAAAAI4JYH3amxQYwrC9Orpf1tW60Tep'
+     captchadata={
+         'secret':secretkey,
+         'response':clientKey
+     }
+    #  r= requests.post('https://www.google.com/recaptcha/api/siteverify', data=captchadata)
+    #  response =  json.loads(r.text)
+     url ='https://www.google.com/recaptcha/api/siteverify'
+     response = requests.post(url,captchadata).json()
+     verify= response['success']
+     if verify== True:
+         myuser= User.objects.create_user(username=email, email=email, password=pass1)
+         myuser.first_name=fname
+         myuser.last_name=lname
+         myuser.save()
+         messages.info(request," Congratulations you have successfully created user account")
+         return redirect('Home')
+     else:
+        messages.error(request,'captcha failed')
+        return redirect('Home')
+        
+           
+         
     else:
         return HttpResponse("404 error")
 
