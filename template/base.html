@@ -47,10 +47,25 @@
 
         <!-- Button trigger modal -->
 
+
+
+        {% if user.is_authenticated  %}
+        <ul class="nav nav-pills">
+         <li class="nav-item dropdown">
+     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{request.user}}</a>
+     <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/logout">Logout</a></li>
+    </ul>
+        {% else %}
     <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#login">
  login
 </button>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
+  Signup
+</button>
+{% endif %} 
 
 <!-- login Modal -->
 <div class="modal fade" id="login" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
@@ -73,7 +88,6 @@
     <label for="loginpassword" class="form-label">Password</label>
     <input type="password" class="form-control" name=loginpassword id="loginpassword">
   </div>
-
   <button type="submit" class="btn btn-primary ">login</button>
 </form>
       </div>
@@ -82,9 +96,7 @@
     </div>
   </div>
 </div>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
-  Signup
-</button>
+
 
 
 
@@ -101,28 +113,31 @@
         {% csrf_token %}
   <div class="mb-3">
     <label for="fname" class="form-label">First Name</label>
-    <input type="text" class="form-control" name="fname" id="fname" aria-describedby="emailHelp">
+    <input type="text" class="form-control" name="fname" id="fname" aria-describedby="emailHelp" required>
   </div>
   <div class="mb-3">
     <label for="lname" class="form-label">Last Name</label>
-    <input type="text" class="form-control"  name="lname" id="lname" aria-describedby="emailHelp">
+    <input type="text" class="form-control"  name="lname" id="lname" aria-describedby="emailHelp" required>
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email address</label>
-    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
   </div>
   <div class="mb-3">
     <label for="pass1" class="form-label">Password</label>
-    <input type="password" class="form-control" name="pass1" id="pass1">
+    <input type="password" class="form-control" name="pass1" id="pass1" required>
   </div>
   <div class="mb-3">
     <label for="pass2" class="form-label">Confirm Password</label>
-    <input type="password" class="form-control" name="pass2" id="pass2">
+    <input type="password" class="form-control" name="pass2" id="pass2" required>
   </div>
+
 
   
   {% csrf_token %}
+  <div class="g-recaptcha" data-sitekey="6LfdC0gfAAAAAJSezbkLBdnXPLVDH1ZwtRweMbWp"></div>
   <button type="submit" class="btn btn-primary">Submit</button>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </form>
 
     
