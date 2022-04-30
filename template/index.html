@@ -90,21 +90,21 @@
   <script>
     function getAndUpdate() {
       console.log("updating list....");
-      tits = document.getElementById("title").value; // getting title in tits variale
+      title = document.getElementById("title").value; // getting title in title variale
       desc = document.getElementById("description").value;
       time = document.getElementById("time").value;
       // getting description in desc variale
 
       if (localStorage.getItem("itemsJson") == null) {
         // if the local storage is clear
-        //  an array should be created and filled with tits and desc
+        //  an array should be created and filled with title and desc
         itemJsonArray = []; // empty array
-        itemJsonArray.push([tits, desc, time]); // filling empty array with the data given by user
+        itemJsonArray.push([title, desc, time]); // filling empty array with the data given by user
         localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray)); // storing in local storage
       } else {
         itemJsonArrayStr = localStorage.getItem("itemsJson");
         itemJsonArray = JSON.parse(itemJsonArrayStr);
-        itemJsonArray.push([tits, desc, time]);
+        itemJsonArray.push([title, desc, time]);
         localStorage.setItem("itemsJson", JSON.stringify(itemJsonArray));
       }
       update();

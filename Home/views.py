@@ -1,6 +1,7 @@
 from email import message
 from email.mime import base
 import json
+from random import random
 from matplotlib.font_manager import json_load
 import requests
 from turtle import home
@@ -11,6 +12,8 @@ from Home.models import Contact
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 def index(request):
@@ -49,6 +52,14 @@ def handleSignUp(request):
          myuser.first_name=fname
          myuser.last_name=lname
          myuser.save()
+         
+         send_mail(
+          'Todo membership',
+          'congratulations! '+fname +' your account has been created successfully.',
+          'adip1shah1@gmail.com',
+           [email],
+           fail_silently=False,
+)
          messages.info(request," Congratulations you have successfully created user account")
          return redirect('Home')
      else:
@@ -93,6 +104,9 @@ def contact(request):
         date= datetime.today()
         contact= Contact(name=name,address=address,email=email,issue=issue,date=date)
         contact.save()
+        messages.success(request," Your response has been recorded")
+        return redirect("Home")
+        
         
         
 
